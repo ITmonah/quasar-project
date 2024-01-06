@@ -36,10 +36,23 @@ export default defineComponent({
     count: Number,
     category: String,
   },
+  data() {
+    return {
+      isModalVisible: false,
+    };
+  },
   setup() {
     return {
       stars: ref(0),
     };
+  },
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
   },
 });
 </script>

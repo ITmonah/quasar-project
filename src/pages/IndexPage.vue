@@ -28,15 +28,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-const sortBy = ref("");
-
-const onChangeSelect = (event) => {
-  sortBy.value = event.target.value;
-};
-</script>
-
 <script>
 import { defineComponent } from "vue";
 import ProductList from "src/components/ProductList.vue";
