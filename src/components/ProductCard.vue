@@ -6,7 +6,7 @@
       </div>
 
       <q-card-section>
-        <div class="text-h6 q-mb-xs">{{ title }}</div>
+        <div class="text-h6 q-mb-xs" @click="showModal">{{ title }}</div>
         <div class="q-mb-xs" style="color: #818181; font-size: 16px">
           Категория: {{ category }}
         </div>
@@ -20,14 +20,27 @@
       </q-card-section>
     </q-card>
   </div>
+  <ModalWindow
+    v-show="isModalVisible"
+    @close="closeModal"
+    :title="title"
+    :category="category"
+    :price="price"
+    :rate="rate"
+    :count="count"
+    :img="img"
+    :description="description"
+  />
 </template>
 
 <script>
 import { defineComponent } from "vue";
 import { ref } from "vue";
+import ModalWindow from "./ModalWindow.vue";
 
 export default defineComponent({
   name: "ProductCard",
+  components: { ModalWindow },
   props: {
     title: String,
     price: Number,
@@ -35,6 +48,7 @@ export default defineComponent({
     rate: Number,
     count: Number,
     category: String,
+    description: String,
   },
   data() {
     return {

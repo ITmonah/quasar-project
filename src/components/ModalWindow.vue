@@ -1,11 +1,26 @@
 <script>
+import { ref } from "vue";
+
 export default {
   name: "ModalWindow",
-
+  props: {
+    title: String,
+    price: Number,
+    img: String,
+    rate: Number,
+    count: Number,
+    category: String,
+    description: String,
+  },
   methods: {
     close() {
       this.$emit("close");
     },
+  },
+  setup() {
+    return {
+      stars: ref(0),
+    };
   },
 };
 </script>
@@ -13,30 +28,47 @@ export default {
 <template>
   <div class="modal-backdrop">
     <div class="modal">
-      <header class="modal-header">
-        <slot name="header">
-          This is the default tile!
+      <button type="button" class="btn-close" @click="close">x</button>
+      <div class="col-sm-12 col-lg-4 col-md-6 product_col">
+        <q-card class="my-card" flat bordered>
+          <div class="card_img">
+            <img :src="img" />
+          </div>
 
-          <button type="button" class="btn-close" @click="close">x</button>
-        </slot>
-      </header>
-      <section class="modal-body">
-        <slot name="body"> I'm the default body! </slot>
-      </section>
-      <footer class="modal-footer">
-        <slot name="footer">
-          I'm the default footer!
-
-          <button type="button" class="btn-green" @click="close">
-            Close me!
-          </button>
-        </slot>
-      </footer>
+          <q-card-section>
+            <div class="text-h6 q-mb-xs">{{ title }}</div>
+            <div class="row no-wrap items-center">
+              <q-rating size="18px" v-model="stars" :max="5" color="primary" />
+              <span class="text-caption text-grey q-ml-sm"
+                >{{ rate }} ({{ count }})</span
+              >
+            </div>
+            <div class="q-mb-xs" style="color: #818181; font-size: 16px">
+              Категория: {{ category }}
+            </div>
+            <div class="q-mb-xs" style="font-size: 16px">
+              {{ description }}
+            </div>
+            <div class="text-h6 q-mb-xs" style="color: #023e8a">
+              Цена: {{ price }} $
+              <button type="button" class="btn-green" @click="close">
+                В корзину
+              </button>
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
+.card_img {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+}
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -47,6 +79,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .modal {
