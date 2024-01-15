@@ -1,12 +1,14 @@
 <template>
-  <div class="col-sm-12 col-lg-4 col-md-6 product_col">
+  <div class="col-xs-12 col-md-6 product_col">
     <q-card class="my-card" flat bordered>
-      <div class="card_img">
+      <div class="card_img" @click="showModal">
         <img :src="img" />
       </div>
 
       <q-card-section>
-        <div class="text-h6 q-mb-xs" @click="showModal">{{ title }}</div>
+        <div class="text-h6 q-mb-xs title_h" @click="showModal">
+          {{ title }}
+        </div>
         <div class="q-mb-xs" style="color: #818181; font-size: 16px">
           Категория: {{ category }}
         </div>
@@ -77,9 +79,25 @@ export default defineComponent({
 }
 .card_img {
   width: 100%;
-  height: 200px;
+  height: 300px;
   display: flex;
   justify-content: center;
+  opacity: 0;
+  animation: ani 0.5s forwards;
+}
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.card_img img:hover {
+  width: 64%;
+  height: 99%;
+  cursor: pointer;
+  transition: all 0.1s ease;
 }
 .card_img img {
   width: 60%;
@@ -88,5 +106,10 @@ export default defineComponent({
   margin-right: auto;
   margin-top: 10px;
   object-fit: contain;
+}
+.title_h:hover {
+  color: #3a7de0;
+  cursor: pointer;
+  transition: all 0.1s ease;
 }
 </style>
